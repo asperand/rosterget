@@ -1,3 +1,4 @@
+from textual import events, on
 from textual.app import App, ComposeResult, RenderResult
 from textual.widgets import Footer, Header, Label, Input, LoadingIndicator
 import roster
