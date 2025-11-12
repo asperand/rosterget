@@ -1,6 +1,7 @@
 ### roster.py
 ### created by Ryan McMahon
 ### Serves as the "backend" for the rosterget app.
+### Certified vibecode free :)
 
 import petl as etl
 import os
@@ -10,6 +11,10 @@ class RosterTable:
     ### Init our table
     def __init__(self,file_path:Path,sheet_name:str):
         self.table = etl.fromxlsx(file_path,sheet_name)
+
+    ### Return a list of column headers
+    def get_headers(self) -> tuple:
+        return etl.header(self.table)
 
     ### Return a list of str values from specific row indices in a loaded column
     def find_value_from_row_indices(self,indices:list[int],column:etl.data) -> list[str]:
