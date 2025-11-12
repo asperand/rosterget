@@ -17,7 +17,7 @@ class RosterGet(App):
     @on(Input.Submitted)
     def load_excel(self) -> roster.RosterTable:
         self.loaded_table = roster.RosterTable(Input.value)
-        print("Loaded table successfully.")
+        self.title = "Successfully loaded " + str(self.loaded_table.get_row_count()) + " rows"
 
 if __name__ == "__main__":
     app = RosterGet()

@@ -12,6 +12,9 @@ class RosterTable:
     def __init__(self,file_path:Path,sheet_name:str):
         self.table = etl.fromxlsx(file_path,sheet_name)
 
+    def get_row_count(self) -> int:
+        return etl.nrows(self.table)
+
     ### Return a list of column headers
     def get_headers(self) -> tuple:
         return etl.header(self.table)
