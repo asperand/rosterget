@@ -4,13 +4,15 @@
 ### Certified vibecode free :)
 
 import petl as etl
+import openpyxl as xl
 import os
 from pathlib import Path
 
 class RosterTable:
     ### Init our table
-    def __init__(self,file_path:Path,sheet_name:str):
-        self.table = etl.fromxlsx(file_path,sheet_name)
+    def __init__(self,file_path:Path):
+        wb = xl.load_workbook(file_path)
+        self.table = etl.fromxlsx(file_path,wb.sheetnames[0])
 
     def get_row_count(self) -> int:
         return etl.nrows(self.table)
@@ -20,7 +22,7 @@ class RosterTable:
         return etl.header(self.table)
 
     ### Return a list of str values from specific row indices in a loaded column
-    def find_value_from_row_indices(self,indices:list[int],column:etl.data) -> list[str]:
+    def find_value_from_row_indices(self,indices:list[int],column) -> list[str]:
         return_list = []
         for id in indices:
             return_list.append(column[id])
