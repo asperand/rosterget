@@ -81,16 +81,16 @@ class RosterApp(App):
                 result = self.loaded_table.find_comms(query_send)
                 self.post_message(QueryMsg.Recv(result))
             case 1:
-                result = self.loaded_table.find_all_roster_names_from_name(query_send)
-                self.post_message(QueryMsg.Recv(result))
-            case 2:
-                result = self.loaded_table.find_all_roster_emails_from_name(query_send)
-                self.post_message(QueryMsg.Recv(result))
-            case 3:
                 result = self.loaded_table.find_roster_info(query_send,"Name")
                 self.post_message(QueryMsg.Recv(result))
-            case 4:
+            case 2:
                 result = self.loaded_table.find_roster_info(query_send,"Email Address")
+                self.post_message(QueryMsg.Recv(result))
+            case 3:
+                result = self.loaded_table.find_all_roster_names_from_name(query_send)
+                self.post_message(QueryMsg.Recv(result))
+            case 4:
+                result = self.loaded_table.find_all_roster_emails_from_name(query_send)
                 self.post_message(QueryMsg.Recv(result))
 
     @on(QueryMsg.Recv)
@@ -145,10 +145,10 @@ class QueryScreen(ModalScreen[QueryMsg.Send]):
         yield Log()
         with RadioSet():
             yield RadioButton("Get all Communities from Name")
-            yield RadioButton("Get all Roster Names from Name")
-            yield RadioButton("Get all Roster Emails from Name")
             yield RadioButton("Get all Roster Names from Community")
             yield RadioButton("Get all Roster Emails from Community")
+            yield RadioButton("Get all Roster Names from Name [bold italic red](Warning: Long)[/]")
+            yield RadioButton("Get all Roster Emails from Name [bold italic red](Warning: Long)[/]")
 
     def on_radio_set_changed(self, event:RadioSet.Changed) -> None:
         self.querytype = event.radio_set.pressed_index
